@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="random_array">
+        <item>Android</item>
+        <item>iOS</item>
+        <item>拓展资源</item>
+        <item>前端</item>
+    </string-array>
+</resources>

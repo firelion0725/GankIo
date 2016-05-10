@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.leo.gank.view.main.MainActivity">
+
+    <include
+        android:id="@+id/appbar_layout"
+        layout="@layout/layout_toolbar" />
+
+    <FrameLayout
+        android:id="@+id/container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_below="@id/appbar_layout" />
+
+    <etong.bottomnavigation.lib.BottomNavigationBar
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/eight_space"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom" />
+
+
+</RelativeLayout>
