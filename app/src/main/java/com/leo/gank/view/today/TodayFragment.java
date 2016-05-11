@@ -2,6 +2,7 @@ package com.leo.gank.view.today;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -46,6 +47,8 @@ public class TodayFragment extends BaseFragment implements TodayImpl {
     RecyclerView recylerview;
 
     DayRecyclerAdapter adapter;
+    @Bind(R.id.swiperefresh)
+    SwipeRefreshLayout swiperefresh;
 
     @Nullable
     @Override
@@ -88,11 +91,28 @@ public class TodayFragment extends BaseFragment implements TodayImpl {
                 }
             }
         });
+
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.loadDataFromNet();
+            }
+        });
     }
 
     @Override
     public void updateView(DayModel model) {
         adapter.setDayModel(model);
+    }
+
+    @Override
+    public void openRefresh() {
+        swiperefresh.setRefreshing(true);
+    }
+
+    @Override
+    public void closeRefresh() {
+        swiperefresh.setRefreshing(false);
     }
 
     @Override

@@ -17,17 +17,17 @@ import rx.functions.Action1;
 public class TodayPresenter extends BasePresenter implements TodayImpl {
 
     TodayFragment fragment;
-    String year,month,day;
+    String year, month, day;
 
     public TodayPresenter(TodayFragment fragment) {
         this.fragment = fragment;
     }
 
-    public void init(Date date){
+    public void init(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         year = String.valueOf(calendar.get(Calendar.YEAR));
-        month = String.valueOf(calendar.get(Calendar.MONTH)+1);
+        month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
         day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
     }
 
@@ -41,17 +41,28 @@ public class TodayPresenter extends BasePresenter implements TodayImpl {
         fragment.updateView(model);
     }
 
+    @Override
+    public void openRefresh() {
+        fragment.openRefresh();
+    }
+
+    @Override
+    public void closeRefresh() {
+        fragment.closeRefresh();
+    }
+
     public void loadData() {
         String time = year + "-" + month + "-" + day;
-//        Observable<DayModel> observable = Observable.concat(DayCache.getCacheObservable(time)
+        //Rxjava 不生效 why？
+//        Observable.concat(DayCache.getCacheObservable(time)
 //                , DayServiceToModel.getDayData(year, month, day))
 //                .takeFirst(new Func1<DayModel, Boolean>() {
 //                    @Override
 //                    public Boolean call(DayModel dayModel) {
+//                        Log.i("call", dayModel + "---" + (dayModel != null));
 //                        return dayModel != null;
 //                    }
-//                });
-//        observable.subscribe(new Action1<DayModel>() {
+//                }).subscribe(new Action1<DayModel>() {
 //            @Override
 //            public void call(DayModel dayModel) {
 //                updateView(dayModel);
@@ -65,14 +76,15 @@ public class TodayPresenter extends BasePresenter implements TodayImpl {
         }
     }
 
-
-    private void loadDataFromNet() {
+    public void loadDataFromNet() {
+        openRefresh();
         DayServiceToModel.getDayData(year, month, day).subscribe(new Action1<DayModel>() {
             @Override
             public void call(DayModel dayModel) {
                 String time = year + "-" + month + "-" + day;
                 DayCache.setDayModelCache(time, dayModel);
                 updateView(dayModel);
+                closeRefresh();
             }
         });
     }

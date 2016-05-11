@@ -8,4 +8,6 @@ import com.leo.gank.model.day.DayModel;
  */
 public interface TodayImpl {
     void updateView(DayModel model);
+    void openRefresh();
+    void closeRefresh();
 }

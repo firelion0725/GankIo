@@ -43,6 +43,9 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
     private List<GankModel> list;
 
     public void setDayModel(DayModel dayModel) {
+        if (dayModel == null) {
+            return;
+        }
         this.dayModel = dayModel;
         this.list = new ArrayList<>();
         if (dayModel.getResults() != null) {
