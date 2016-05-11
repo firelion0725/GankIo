@@ -15,7 +15,6 @@ import java.util.List;
 public class HistoryCache {
 
     private static class Cache {
-        static Parcelable RandomViewPagerAdapterSave;
         static HistoryModel historyModelCache = new HistoryModel();
         static HashMap<Integer, List<GankModel>> girlMap = new HashMap<>();
     }
@@ -35,14 +34,4 @@ public class HistoryCache {
     public static void setGirlList(int page, List<GankModel> girlList) {
         Cache.girlMap.put(page, girlList);
     }
-
-    public static void setRandomViewPagerAdapterSave(Parcelable parcelable){
-        Cache.RandomViewPagerAdapterSave = parcelable;
-    }
-
-    public static Parcelable getRandomViewPagerAdapterSave(){
-        return Cache.RandomViewPagerAdapterSave;
-    }
-
-
 }
