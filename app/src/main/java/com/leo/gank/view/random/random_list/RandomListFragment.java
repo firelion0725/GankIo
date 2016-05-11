@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.leo.gank.R;
 import com.leo.gank.comm.Constants;
-import com.leo.gank.comm.adapter.RandomRecyclerAdapter;
+import com.leo.gank.comm.adapter.RecyclerAdapter;
 import com.leo.gank.comm.view.BaseFragment;
 import com.leo.gank.model.comm.GankModel;
 import com.leo.gank.view.random.dagger.DaggerRandomListComponents;
@@ -42,7 +42,7 @@ public class RandomListFragment extends BaseFragment implements RandomListImpl {
     @Bind(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
 
-    RandomRecyclerAdapter adapter;
+    RecyclerAdapter adapter;
 
     public static RandomListFragment getInstance(String type) {
         RandomListFragment fragment = new RandomListFragment();
@@ -83,7 +83,7 @@ public class RandomListFragment extends BaseFragment implements RandomListImpl {
 
     public void reset() {
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new RandomRecyclerAdapter(getContext(), new ArrayList<GankModel>());
+        adapter = new RecyclerAdapter(getContext(), new ArrayList<GankModel>());
         recyclerview.setAdapter(adapter);
 
         presenter.setType(getArguments().getString(Constants.Argument.TYPE));

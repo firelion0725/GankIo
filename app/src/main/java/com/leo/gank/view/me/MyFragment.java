@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.leo.gank.R;
-import com.leo.gank.comm.adapter.RandomRecyclerAdapter;
+import com.leo.gank.comm.adapter.RecyclerAdapter;
 import com.leo.gank.comm.view.BaseFragment;
 import com.leo.gank.model.comm.GankModel;
 import com.leo.gank.view.me.dagger.DaggerMyComponents;
@@ -41,7 +41,7 @@ public class MyFragment extends BaseFragment implements MyImpl {
     @Bind(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
 
-    RandomRecyclerAdapter adapter;
+    RecyclerAdapter adapter;
 
     @Nullable
     @Override
@@ -58,7 +58,7 @@ public class MyFragment extends BaseFragment implements MyImpl {
         components.inject(this);
 
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new RandomRecyclerAdapter(getContext(), new ArrayList<GankModel>());
+        adapter = new RecyclerAdapter(getContext(), new ArrayList<GankModel>());
         recyclerview.setAdapter(adapter);
 
         presenter.initData();

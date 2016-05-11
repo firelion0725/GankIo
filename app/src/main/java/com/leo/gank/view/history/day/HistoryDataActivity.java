@@ -9,15 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.leo.gank.R;
-import com.leo.gank.comm.Constants;
+import com.leo.gank.comm.adapter.DayRecyclerAdapter;
 import com.leo.gank.comm.view.BaseActivity;
 import com.leo.gank.model.day.DayModel;
-import com.leo.gank.view.history.adapter.HistoryDataRecyclerAdapter;
 import com.leo.gank.view.history.dagger.DaggerHistoryDataComponents;
 import com.leo.gank.view.history.dagger.HistoryDataComponents;
 import com.leo.gank.view.history.dagger.HistoryDataModules;
-
-import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -35,14 +32,11 @@ public class HistoryDataActivity extends BaseActivity implements HistoryDataImpl
 
     HistoryDataComponents components;
 
-    HistoryDataRecyclerAdapter adapter;
+    DayRecyclerAdapter adapter;
     @Bind(R.id.appbar_layout)
     AppBarLayout appbarLayout;
 
-//    private Calendar calendar;
-
     String title;
-    int position = 0;
     @Bind(R.id.recylerview)
     RecyclerView recylerview;
     @Bind(R.id.toolbar)
@@ -65,21 +59,11 @@ public class HistoryDataActivity extends BaseActivity implements HistoryDataImpl
                 .build();
         components.inject(this);
 
-        position = getIntent().getIntExtra(Constants.Argument.POSITION, 0);
-        title = getIntent().getStringExtra(Constants.Argument.TITLE);
-
-        Date date = (Date) getIntent().getSerializableExtra(Constants.Argument.TIME);
-
-//        String[] sourceStrArray = title.split("\\.");
-//
-//        calendar.set(Calendar.MONTH, Integer.parseInt(sourceStrArray[0]) - 1);
-//        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(sourceStrArray[1]));
-
-        adapter = new HistoryDataRecyclerAdapter(this, new DayModel());
+        adapter = new DayRecyclerAdapter(this, new DayModel());
         recylerview.setLayoutManager(new LinearLayoutManager(this));
         recylerview.setAdapter(adapter);
 
-        presenter.init(date);
+        presenter.init();
         presenter.initData();
     }
 

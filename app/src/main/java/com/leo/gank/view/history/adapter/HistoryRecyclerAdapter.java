@@ -122,9 +122,8 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     private void gotoHistory(int position) {
         Intent intent = new Intent(context, HistoryDataActivity.class);
-        intent.putExtra(Constants.Argument.POSITION, position);
-        intent.putExtra(Constants.Argument.TITLE, girls.get(position).getDesc());
-        intent.putExtra(Constants.Argument.TIME, girls.get(position).getPublishedAt());
+        GankModel model = girls.get(position);
+        intent.putExtra(Constants.Argument.MODEL,model);
         context.startActivity(intent);
     }
 

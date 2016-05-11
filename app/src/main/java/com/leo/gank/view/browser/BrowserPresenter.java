@@ -1,5 +1,6 @@
 package com.leo.gank.view.browser;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 

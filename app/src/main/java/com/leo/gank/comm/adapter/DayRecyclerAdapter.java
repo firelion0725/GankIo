@@ -1,13 +1,11 @@
-package com.leo.gank.view.today.adapter;
+package com.leo.gank.comm.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by leo on 2016/4/28
  * Function
  */
-public class TodayRecyclerAdapter extends RecyclerView.Adapter<TodayRecyclerAdapter.ViewHolder> {
+public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.ViewHolder> {
 
     private Context context;
     private Resources res;
@@ -74,7 +72,7 @@ public class TodayRecyclerAdapter extends RecyclerView.Adapter<TodayRecyclerAdap
         notifyDataSetChanged();
     }
 
-    public TodayRecyclerAdapter(Context context, DayModel dayModel) {
+    public DayRecyclerAdapter(Context context, DayModel dayModel) {
         this.context = context;
         this.res = context.getResources();
         this.picasso = Picasso.with(context);

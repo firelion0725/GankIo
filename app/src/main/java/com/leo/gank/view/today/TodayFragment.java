@@ -7,21 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.leo.gank.R;
 import com.leo.gank.comm.Constants;
+import com.leo.gank.comm.adapter.DayRecyclerAdapter;
 import com.leo.gank.comm.rxjava.RxBus;
 import com.leo.gank.comm.utils.Utils;
 import com.leo.gank.comm.view.BaseFragment;
 import com.leo.gank.data.history.HistoryCache;
 import com.leo.gank.model.day.DayModel;
 import com.leo.gank.view.main.MainActivity;
-import com.leo.gank.view.today.adapter.TodayRecyclerAdapter;
 import com.leo.gank.view.today.dagger.DaggerTodayComponents;
 import com.leo.gank.view.today.dagger.TodayComponents;
 import com.leo.gank.view.today.dagger.TodayModules;
-import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -47,7 +45,7 @@ public class TodayFragment extends BaseFragment implements TodayImpl {
     @Bind(R.id.recylerview)
     RecyclerView recylerview;
 
-    TodayRecyclerAdapter adapter;
+    DayRecyclerAdapter adapter;
 
     @Nullable
     @Override
@@ -65,7 +63,7 @@ public class TodayFragment extends BaseFragment implements TodayImpl {
         components.inject(this);
 
         recylerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new TodayRecyclerAdapter(getContext(), new DayModel());
+        adapter = new DayRecyclerAdapter(getContext(), new DayModel());
         recylerview.setAdapter(adapter);
         if (!Utils.ListUtils.isEmpty(HistoryCache.getHistoryCache().getResults())) {
             Date date = HistoryCache.getHistoryCache().getResults().get(0);

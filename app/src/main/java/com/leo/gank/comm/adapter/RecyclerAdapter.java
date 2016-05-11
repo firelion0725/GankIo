@@ -25,12 +25,12 @@ import butterknife.ButterKnife;
  * Created by leo on 2016/4/27
  * Function
  */
-public class RandomRecyclerAdapter extends RecyclerView.Adapter<RandomRecyclerAdapter.ViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private Context context;
     private List<GankModel> results;
 
-    public RandomRecyclerAdapter(Context context, List<GankModel> results) {
+    public RecyclerAdapter(Context context, List<GankModel> results) {
         this.context = context;
         this.results = results;
     }

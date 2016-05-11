@@ -1,8 +1,10 @@
 package com.leo.gank.view.history.day;
 
+import com.leo.gank.comm.Constants;
 import com.leo.gank.comm.view.BasePresenter;
 import com.leo.gank.data.day.DayCache;
 import com.leo.gank.data.day.DayServiceToModel;
+import com.leo.gank.model.comm.GankModel;
 import com.leo.gank.model.day.DayModel;
 import com.leo.gank.view.today.TodayFragment;
 
@@ -18,14 +20,16 @@ import rx.functions.Action1;
 public class HistoryDataPresenter extends BasePresenter implements HistoryDataImpl {
 
     HistoryDataActivity activity;
-
+    GankModel model;
     String year, month, day;
 
     public HistoryDataPresenter(HistoryDataActivity activity) {
         this.activity = activity;
     }
 
-    public void init(Date date) {
+    public void init() {
+        model = activity.getIntent().getParcelableExtra(Constants.Argument.MODEL);
+        Date date = model.getPublishedAt();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         year = String.valueOf(calendar.get(Calendar.YEAR));
