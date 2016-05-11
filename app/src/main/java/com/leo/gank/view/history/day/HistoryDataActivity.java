@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.leo.gank.R;
 import com.leo.gank.comm.Constants;
@@ -18,7 +17,6 @@ import com.leo.gank.view.history.dagger.DaggerHistoryDataComponents;
 import com.leo.gank.view.history.dagger.HistoryDataComponents;
 import com.leo.gank.view.history.dagger.HistoryDataModules;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -87,7 +85,7 @@ public class HistoryDataActivity extends BaseActivity implements HistoryDataImpl
 
     @Override
     protected void setDataForViews() {
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_white);
+        toolbar.setNavigationIcon(R.drawable.ic_back_white);
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

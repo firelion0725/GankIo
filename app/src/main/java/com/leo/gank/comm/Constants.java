@@ -23,7 +23,7 @@ public class Constants {
         public static final String FRONT = "前端";
         public static final String VIEW = "休息视频";
         public static final String EXPAND = "拓展资源";
-
+        public static final String APP = "APP";
     }
 
     public static class Notice{

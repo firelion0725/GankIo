@@ -14,9 +14,39 @@
     </style>
 
 
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="horizontal_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/gray_700</item>
+    </style>
+
+    <style name="vertical_line">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/gray_700</item>
+    </style>
+    android:layout_marginStart="@dimen/two_space"
+
+    <style name="about_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/two_space</item>
+        <item name="android:layout_marginStart">@dimen/two_space</item>
+    </style>
+
+    <style name="about_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/four_space</item>
+        <item name="android:layout_marginEnd">@dimen/two_space</item>
+        <item name="android:layout_marginStart">@dimen/two_space</item>
+        <item name="android:background">@drawable/layout_click</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/blue_700</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lines">1</item>
+    </style>
 </resources>

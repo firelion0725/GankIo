@@ -47,9 +47,10 @@ public class RandomListPresenter extends BasePresenter implements RandomListImpl
 //            }
 //        });
 
-        if(Utils.ListUtils.isEmpty(RandomCache.getCache(type).getResults())){
+        if (RandomCache.getCache(type) == null
+                || Utils.ListUtils.isEmpty(RandomCache.getCache(type).getResults())) {
             loadData();
-        }else{
+        } else {
             refreshRecycler(RandomCache.getCache(type).getResults());
         }
 
@@ -66,6 +67,7 @@ public class RandomListPresenter extends BasePresenter implements RandomListImpl
 
             @Override
             public void onError(Throwable e) {
+                e.getLocalizedMessage();
                 closeRefresh();
             }
 

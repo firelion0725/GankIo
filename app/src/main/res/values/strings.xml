@@ -21,7 +21,30 @@
     <string name="me_status">我的干货</string>
 
     <string name="NONE">NONE</string>
+    <string name="back">返回</string>
+    <string name="got_to_gank">去GankIo看看</string>
+
 
     <string name="collect_cancel">取消收藏</string>
     <string name="collect_add">加入收藏</string>
+
+    <string name="welcome">欢迎来到gankIo，代码与妹子的世界</string>
+    <string name="author">不明真相的Leo</string>
+    <string name="author_gank">GankIo作者</string>
+    <string name="author_android">android客户端作者</string>
+    <string name="daimajia_introduction">代码家\n国内开源大牛</string>
+    <string name="leo_introduction">不明真相的Leo\n一个敲代码的逗逼</string>
+    <string name="open_source_framework">开源组件</string>
+
+
+    <string name="butterknife">Butterknife: https://github.com/JakeWharton/butterknife</string>
+    <string name="dagger2">Dagger2: https://github.com/google/dagger</string>
+    <string name="retrofit2">Retrofit2: https://github.com/square/retrofit</string>
+    <string name="BottomNavigationBar">BottomNavigationBar: https://github.com/RoyWallace/BottomNavigationBar</string>
+    <string name="picasso">picasso: https://github.com/square/picasso</string>
+    <string name="glide">Glide: https://github.com/bumptech/glide</string>
+    <string name="rxjava">Rxjava: https://github.com/ReactiveX/RxJava</string>
+    <string name="realm">Realm: https://github.com/realm/realm-java</string>
+    <string name="gson">Gson: https://github.com/google/gson</string>
+
 </resources>

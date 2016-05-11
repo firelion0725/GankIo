@@ -6,13 +6,136 @@
 
     <include layout="@layout/layout_toolbar" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/one_space"
-        android:layout_marginEnd="@dimen/two_space"
-        android:layout_marginStart="@dimen/two_space"
-        android:layout_marginTop="@dimen/one_space"
-        android:text="@string/action_about" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/introduction_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/one_space"
+                android:layout_marginEnd="@dimen/two_space"
+                android:layout_marginStart="@dimen/two_space"
+                android:layout_marginTop="@dimen/one_space" />
+
+            <View style="@style/horizontal_line" />
+
+            <TextView
+                style="@style/about_style"
+                android:layout_marginTop="@dimen/one_space"
+                android:text="@string/author_gank" />
+
+            <LinearLayout
+                android:id="@+id/daimajia_layout"
+                style="@style/about_style"
+                android:layout_marginTop="@dimen/one_space"
+                android:background="@drawable/layout_click"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/five_space"
+                    android:layout_height="@dimen/five_space"
+                    android:background="@drawable/daimajia" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/five_space"
+                    android:layout_marginStart="@dimen/two_space"
+                    android:gravity="center|left"
+                    android:text="@string/daimajia_introduction"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/about_style"
+                android:layout_marginTop="@dimen/one_space"
+                android:text="@string/author_android" />
+
+            <LinearLayout
+                android:id="@+id/leo_layout"
+                style="@style/about_style"
+                android:layout_marginBottom="@dimen/one_space"
+                android:layout_marginTop="@dimen/one_space"
+                android:background="@drawable/layout_click"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/five_space"
+                    android:layout_height="@dimen/five_space"
+                    android:background="@drawable/leo" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/five_space"
+                    android:layout_marginStart="@dimen/two_space"
+                    android:gravity="center|left"
+                    android:text="@string/leo_introduction"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View style="@style/horizontal_line" />
+
+            <TextView
+                style="@style/about_style"
+                android:layout_marginTop="@dimen/one_space"
+                android:text="@string/open_source_framework" />
+
+            <TextView
+                android:id="@+id/dagger2_text"
+                style="@style/about_text"
+                android:text="@string/dagger2" />
+
+            <TextView
+                android:id="@+id/BottomNavigationBar_text"
+                style="@style/about_text"
+                android:text="@string/BottomNavigationBar" />
+
+            <TextView
+                android:id="@+id/retrofit2_text"
+                style="@style/about_text"
+                android:text="@string/retrofit2" />
+
+            <TextView
+                android:id="@+id/butterknife_text"
+                style="@style/about_text"
+                android:text="@string/butterknife" />
+
+            <TextView
+                android:id="@+id/picasso_text"
+                style="@style/about_text"
+                android:text="@string/picasso" />
+
+            <TextView
+                android:id="@+id/glide_text"
+                style="@style/about_text"
+                android:text="@string/glide" />
+
+            <TextView
+                android:id="@+id/rxjava_text"
+                style="@style/about_text"
+                android:text="@string/rxjava" />
+
+            <TextView
+                android:id="@+id/realm_text"
+                style="@style/about_text"
+                android:text="@string/realm" />
+
+            <TextView
+                android:id="@+id/gson_text"
+                style="@style/about_text"
+                android:layout_marginBottom="@dimen/one_space"
+                android:text="@string/gson" />
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>
