@@ -48,19 +48,19 @@ public class RetrofitConnection {
 
     }
 
-    public static final Retrofit getRetrofitClient(){
+    public static Retrofit getRetrofitClient(){
         return ClientHolder.retrofit;
     }
 
-    public static final Retrofit getRetrofitClient(OkHttpClient client){
+    public static Retrofit getRetrofitClient(OkHttpClient client){
         return ClientHolder.getRetrofitInstance(client);
     }
 
-    public static final Retrofit getRetrofitClient(String BaseUrl){
+    public static Retrofit getRetrofitClient(String BaseUrl){
         return ClientHolder.getRetrofitInstance(BaseUrl);
     }
 
-    public static final Retrofit getRetrofitClient(OkHttpClient client,String BaseUrl){
+    public static Retrofit getRetrofitClient(OkHttpClient client,String BaseUrl){
         return ClientHolder.getRetrofitInstance(client,BaseUrl);
     }
 

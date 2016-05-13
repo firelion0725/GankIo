@@ -25,6 +25,7 @@ public class DayCache {
             @Override
             public void call(Subscriber<? super DayModel> subscriber) {
                 subscriber.onNext(getDayModelCache(time));
+                subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }

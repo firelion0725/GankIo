@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by leo on 2016/5/9
  * Function
@@ -40,6 +45,16 @@ public class MyCache {
             isHas = Cache.MyCollectCacheList.containsKey(id);
         }
         return isHas;
+    }
+
+    public static Observable<List<GankModel>> getObservable(){
+        return Observable.create(new Observable.OnSubscribe<List<GankModel>>() {
+            @Override
+            public void call(Subscriber<? super List<GankModel>> subscriber) {
+                subscriber.onNext(new ArrayList<>(getCollectCache().values()));
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }

@@ -1,5 +1,7 @@
 package com.leo.gank.view.today;
 
+import android.util.Log;
+
 import com.leo.gank.comm.view.BasePresenter;
 import com.leo.gank.data.day.DayCache;
 import com.leo.gank.data.day.DayServiceToModel;
@@ -8,7 +10,9 @@ import com.leo.gank.model.day.DayModel;
 import java.util.Calendar;
 import java.util.Date;
 
+import rx.Observable;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by leo on 2016/4/28
@@ -53,27 +57,27 @@ public class TodayPresenter extends BasePresenter implements TodayImpl {
 
     public void loadData() {
         String time = year + "-" + month + "-" + day;
-        //Rxjava 不生效 why？
-//        Observable.concat(DayCache.getCacheObservable(time)
-//                , DayServiceToModel.getDayData(year, month, day))
-//                .takeFirst(new Func1<DayModel, Boolean>() {
-//                    @Override
-//                    public Boolean call(DayModel dayModel) {
-//                        Log.i("call", dayModel + "---" + (dayModel != null));
-//                        return dayModel != null;
-//                    }
-//                }).subscribe(new Action1<DayModel>() {
-//            @Override
-//            public void call(DayModel dayModel) {
-//                updateView(dayModel);
-//            }
-//        });
 
-        if(DayCache.getDayModelCache(time) != null){
-            updateView(DayCache.getDayModelCache(time));
-        }else{
-            loadDataFromNet();
-        }
+        Observable.concat(DayCache.getCacheObservable(time)
+                , DayServiceToModel.getDayData(year, month, day))
+                .takeFirst(new Func1<DayModel, Boolean>() {
+                    @Override
+                    public Boolean call(DayModel dayModel) {
+                        Log.i("call", dayModel + "---" + (dayModel != null));
+                        return dayModel != null;
+                    }
+                }).subscribe(new Action1<DayModel>() {
+            @Override
+            public void call(DayModel dayModel) {
+                updateView(dayModel);
+            }
+        });
+
+//        if(DayCache.getDayModelCache(time) != null){
+//            updateView(DayCache.getDayModelCache(time));
+//        }else{
+//            loadDataFromNet();
+//        }
     }
 
     public void loadDataFromNet() {

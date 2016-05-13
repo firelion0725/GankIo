@@ -12,7 +12,10 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import rx.Observable;
+import rx.Subscriber;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by leo on 2016/5/10
@@ -32,28 +35,31 @@ public class MyPresenter extends BasePresenter implements MyImpl {
     }
 
     private void loadData() {
-        if (Utils.MapUtils.isEmpty(MyCache.getCollectCache())) {
-            loadMyCollect();
-        } else {
-            List<GankModel> list = new ArrayList<>(MyCache.getCollectCache().values());
-            refreshRecycler(list);
-        }
+
+        Observable.concat(MyCache.getObservable(), getDataBaseObservable())
+                .takeFirst(new Func1<List<GankModel>, Boolean>() {
+                    @Override
+                    public Boolean call(List<GankModel> gankModels) {
+                        return !Utils.ListUtils.isEmpty(gankModels);
+                    }
+                })
+                .subscribe(new Action1<List<GankModel>>() {
+                    @Override
+                    public void call(List<GankModel> gankModels) {
+                        refreshRecycler(gankModels);
+                    }
+                });
     }
 
     public void refresh() {
-        openRefresh();
         loadMyCollect();
-        List<GankModel> list = new ArrayList<>(MyCache.getCollectCache().values());
-        refreshRecycler(list);
     }
 
     private void loadMyCollect() {
-        Realm realm = RealmUtils.getRealmInstance();
-
-        RealmResults<GankModel> gankModels = realm.where(GankModel.class).findAll();
-        gankModels.asObservable().subscribe(new Action1<RealmResults<GankModel>>() {
+        openRefresh();
+        getDataBaseObservable().subscribe(new Action1<List<GankModel>>() {
             @Override
-            public void call(RealmResults<GankModel> gankModels) {
+            public void call(List<GankModel> gankModels) {
                 HashMap<String, GankModel> map = new HashMap<>();
                 for (GankModel model : gankModels) {
                     map.put(model.get_id(), model);
@@ -61,6 +67,31 @@ public class MyPresenter extends BasePresenter implements MyImpl {
                 MyCache.setCollectCache(map);
                 refreshRecycler(gankModels);
                 closeRefresh();
+            }
+        });
+
+//        gankModels.asObservable().subscribe(new Action1<RealmResults<GankModel>>() {
+//            @Override
+//            public void call(RealmResults<GankModel> gankModels) {
+//                HashMap<String, GankModel> map = new HashMap<>();
+//                for (GankModel model : gankModels) {
+//                    map.put(model.get_id(), model);
+//                }
+//                MyCache.setCollectCache(map);
+//                refreshRecycler(gankModels);
+//                closeRefresh();
+//            }
+//        });
+    }
+
+    private Observable<List<GankModel>> getDataBaseObservable() {
+        Realm realm = RealmUtils.getRealmInstance();
+        final RealmResults<GankModel> gankModels = realm.where(GankModel.class).findAll();
+        return Observable.create(new Observable.OnSubscribe<List<GankModel>>() {
+            @Override
+            public void call(Subscriber<? super List<GankModel>> subscriber) {
+                subscriber.onNext(gankModels);
+                subscriber.onCompleted();
             }
         });
     }

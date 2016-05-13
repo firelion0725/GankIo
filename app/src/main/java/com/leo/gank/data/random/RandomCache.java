@@ -33,6 +33,7 @@ public class RandomCache {
             public void call(Subscriber<? super DataModel> subscriber) {
                 if (!subscriber.isUnsubscribed()) {
                     subscriber.onNext(getCache(type));
+                    subscriber.onCompleted();
                 }
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());

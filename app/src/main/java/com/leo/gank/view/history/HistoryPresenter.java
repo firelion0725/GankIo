@@ -14,6 +14,8 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by leo on 2016/4/28
@@ -30,12 +32,21 @@ public class HistoryPresenter extends BasePresenter implements HistoryImpl {
 
     @Override
     protected void initData() {
-        if (Utils.ListUtils.isEmpty(HistoryCache.getGirlList(page))) {
-            loadGirl();
-        } else {
-            refresh(HistoryCache.getGirlList(page));
-            page++;
-        }
+
+        Observable.concat(HistoryCache.getObservable(page), HistoryServiceToModel.getData(Constants.Type.WELFARE, page))
+                .takeFirst(new Func1<DataModel, Boolean>() {
+                    @Override
+                    public Boolean call(DataModel dataModel) {
+                        return dataModel != null && !Utils.ListUtils.isEmpty(dataModel.getResults());
+                    }
+                })
+                .subscribe(new Action1<DataModel>() {
+                    @Override
+                    public void call(DataModel dataModel) {
+                        refresh(dataModel.getResults());
+                        page++;
+                    }
+                });
     }
 
 
@@ -48,12 +59,12 @@ public class HistoryPresenter extends BasePresenter implements HistoryImpl {
 
             @Override
             public void onError(Throwable e) {
-                Log.i("aaaaa",""+e.getLocalizedMessage());
+                Log.i("aaaaa", "" + e.getLocalizedMessage());
             }
 
             @Override
             public void onNext(DataModel dataModel) {
-                HistoryCache.setGirlList(page,dataModel.getResults());
+                HistoryCache.setGirlList(page, dataModel);
                 page++;
                 refresh(dataModel.getResults());
             }

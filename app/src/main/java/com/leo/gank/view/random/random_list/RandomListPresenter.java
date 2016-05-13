@@ -11,6 +11,8 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by leo on 2016/4/26
@@ -33,26 +35,28 @@ public class RandomListPresenter extends BasePresenter implements RandomListImpl
     protected void initData() {
         //concat内的网络请求不生效 原因不明
 
-//        Observable<DataModel> observable = Observable.concat(RandomCache.getCacheObservable(type), RandomServiceToModel.getRandomData(type, 20))
-//                .takeFirst(new Func1<DataModel, Boolean>() {
-//                    @Override
-//                    public Boolean call(DataModel DataModel) {
-//                        return DataModel.getResults() != null && !DataModel.getResults().isEmpty();
-//                    }
-//                });
-//        observable.subscribe(new Action1<DataModel>() {
-//            @Override
-//            public void call(DataModel DataModel) {
-//                refreshRecycler(DataModel.getResults());
-//            }
-//        });
+        Observable<DataModel> observable = Observable.concat(RandomCache.getObservable(type), RandomServiceToModel.getRandomData(type, 20))
+                .takeFirst(new Func1<DataModel, Boolean>() {
+                    @Override
+                    public Boolean call(DataModel DataModel) {
+                        return DataModel != null
+                                && DataModel.getResults() != null
+                                && !DataModel.getResults().isEmpty();
+                    }
+                });
+        observable.subscribe(new Action1<DataModel>() {
+            @Override
+            public void call(DataModel DataModel) {
+                refreshRecycler(DataModel.getResults());
+            }
+        });
 
-        if (RandomCache.getCache(type) == null
-                || Utils.ListUtils.isEmpty(RandomCache.getCache(type).getResults())) {
-            loadData();
-        } else {
-            refreshRecycler(RandomCache.getCache(type).getResults());
-        }
+//        if (RandomCache.getCache(type) == null
+//                || Utils.ListUtils.isEmpty(RandomCache.getCache(type).getResults())) {
+//            loadData();
+//        } else {
+//            refreshRecycler(RandomCache.getCache(type).getResults());
+//        }
 
     }
 
