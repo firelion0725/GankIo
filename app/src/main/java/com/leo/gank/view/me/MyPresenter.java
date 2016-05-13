@@ -69,19 +69,6 @@ public class MyPresenter extends BasePresenter implements MyImpl {
                 closeRefresh();
             }
         });
-
-//        gankModels.asObservable().subscribe(new Action1<RealmResults<GankModel>>() {
-//            @Override
-//            public void call(RealmResults<GankModel> gankModels) {
-//                HashMap<String, GankModel> map = new HashMap<>();
-//                for (GankModel model : gankModels) {
-//                    map.put(model.get_id(), model);
-//                }
-//                MyCache.setCollectCache(map);
-//                refreshRecycler(gankModels);
-//                closeRefresh();
-//            }
-//        });
     }
 
     private Observable<List<GankModel>> getDataBaseObservable() {
