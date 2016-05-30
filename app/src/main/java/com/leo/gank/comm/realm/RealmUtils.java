@@ -11,7 +11,7 @@ import io.realm.RealmConfiguration;
  */
 public class RealmUtils {
 
-    static class RealmClient {
+    private static class RealmClient {
         static Realm realm;
     }
 

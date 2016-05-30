@@ -36,9 +36,9 @@ public class BrowserActivity extends BaseActivity implements BrowserImpl {
     @Inject
     BrowserPresenter presenter;
 
-    BrowserComponents components;
+    private BrowserComponents components;
 
-    boolean isCollect = false;
+    private boolean isCollect = false;
 
 
     @Override
@@ -73,18 +73,12 @@ public class BrowserActivity extends BaseActivity implements BrowserImpl {
     }
 
     @Override
-    public void setToolBar(String desc,boolean isCollect) {
-        Log.i("setToolBar","isCollect:"+isCollect);
+    public void setToolBar(String desc, boolean isCollect) {
         this.isCollect = isCollect;
         toolbar.setNavigationIcon(R.drawable.ic_close_white);
         toolbar.setTitle(desc);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
@@ -94,7 +88,7 @@ public class BrowserActivity extends BaseActivity implements BrowserImpl {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.i("onCreateOptionsMenu","isCollect:"+isCollect);
+        Log.i("onCreateOptionsMenu", "isCollect:" + isCollect);
         getMenuInflater().inflate(R.menu.menu_browser, menu);
         MenuItem item = menu.getItem(0);
         if (isCollect) {

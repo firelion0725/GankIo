@@ -15,7 +15,7 @@ import rx.schedulers.Schedulers;
  */
 public class DayCache {
 
-    public static class Cache {
+    private static class Cache {
         static HashMap<String, DayModel> map = new HashMap<>();
     }
 

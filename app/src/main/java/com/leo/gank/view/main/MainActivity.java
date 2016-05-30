@@ -75,29 +75,26 @@ public class MainActivity extends BaseActivity implements MainImpl {
         bottomLayout.addTab(R.drawable.ic_gesture_white, getString(R.string.random_select), ContextCompat.getColor(this, R.color.blue_300));
         bottomLayout.addTab(R.drawable.ic_date_range_white, getString(R.string.history_select), ContextCompat.getColor(this, R.color.light_blue_300));
         bottomLayout.addTab(R.drawable.ic_perm_contact_calendar_white, getString(R.string.me_status), ContextCompat.getColor(this, R.color.cyan_300));
-        bottomLayout.setOnTabListener(new BottomNavigationBar.TabListener() {
-            @Override
-            public void onSelected(int i) {
-                switch (i) {
-                    case 0:
-                        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.indigo_300));
-                        setSupportActionBar(toolbar);
-                        break;
-                    case 1:
-                        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.blue_300));
-                        setSupportActionBar(toolbar);
-                        break;
-                    case 2:
-                        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.light_blue_300));
-                        setSupportActionBar(toolbar);
-                        break;
-                    case 3:
-                        toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.cyan_300));
-                        setSupportActionBar(toolbar);
-                        break;
-                }
-                presenter.setFragment(i);
+        bottomLayout.setOnTabListener(i -> {
+            switch (i) {
+                case 0:
+                    toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.indigo_300));
+                    setSupportActionBar(toolbar);
+                    break;
+                case 1:
+                    toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.blue_300));
+                    setSupportActionBar(toolbar);
+                    break;
+                case 2:
+                    toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.light_blue_300));
+                    setSupportActionBar(toolbar);
+                    break;
+                case 3:
+                    toolbar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.cyan_300));
+                    setSupportActionBar(toolbar);
+                    break;
             }
+            presenter.setFragment(i);
         });
 
 
@@ -119,6 +116,7 @@ public class MainActivity extends BaseActivity implements MainImpl {
     public void sendHistoryData() {
         rxBus.send(Constants.Notice.HISTORY);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);

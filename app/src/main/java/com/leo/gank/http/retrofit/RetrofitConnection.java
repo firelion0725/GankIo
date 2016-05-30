@@ -15,7 +15,7 @@ public class RetrofitConnection {
 
     private static final String BaseUrl = "http://gank.io/api/";
 
-    private static class ClientHolder{
+    private static class ClientHolder {
         private static Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BaseUrl)
                 .client(OkHttpConnection.getOkHttpClient())
@@ -23,47 +23,43 @@ public class RetrofitConnection {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        private static Retrofit getRetrofitInstance(OkHttpClient client){
-            Retrofit retrofit = new Retrofit.Builder()
+        private static Retrofit getRetrofitInstance(OkHttpClient client) {
+            return new Retrofit.Builder()
                     .baseUrl(BaseUrl)
                     .client(client)
                     .build();
-            return retrofit;
         }
 
-        private static Retrofit getRetrofitInstance(OkHttpClient client,String BaseUrl){
-            Retrofit retrofit = new Retrofit.Builder()
+        private static Retrofit getRetrofitInstance(OkHttpClient client, String BaseUrl) {
+            return new Retrofit.Builder()
                     .baseUrl(BaseUrl)
                     .client(client)
                     .build();
-            return retrofit;
         }
 
-        private static Retrofit getRetrofitInstance(String BaseUrl){
-            Retrofit retrofit = new Retrofit.Builder()
+        private static Retrofit getRetrofitInstance(String BaseUrl) {
+            return new Retrofit.Builder()
                     .baseUrl(BaseUrl)
                     .build();
-            return retrofit;
         }
 
     }
 
-    public static Retrofit getRetrofitClient(){
+    public static Retrofit getRetrofitClient() {
         return ClientHolder.retrofit;
     }
 
-    public static Retrofit getRetrofitClient(OkHttpClient client){
+    public static Retrofit getRetrofitClient(OkHttpClient client) {
         return ClientHolder.getRetrofitInstance(client);
     }
 
-    public static Retrofit getRetrofitClient(String BaseUrl){
+    public static Retrofit getRetrofitClient(String BaseUrl) {
         return ClientHolder.getRetrofitInstance(BaseUrl);
     }
 
-    public static Retrofit getRetrofitClient(OkHttpClient client,String BaseUrl){
-        return ClientHolder.getRetrofitInstance(client,BaseUrl);
+    public static Retrofit getRetrofitClient(OkHttpClient client, String BaseUrl) {
+        return ClientHolder.getRetrofitInstance(client, BaseUrl);
     }
-
 
 
 }

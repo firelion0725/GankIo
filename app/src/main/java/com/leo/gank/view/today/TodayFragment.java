@@ -77,27 +77,20 @@ public class TodayFragment extends BaseFragment implements TodayImpl {
 
     @Override
     protected void setDataForViews() {
-        rxBus.subscribe().subscribe(new Action1<Object>() {
-            @Override
-            public void call(Object o) {
-                if (o instanceof String) {
-                    String str = (String) o;
-                    switch (str) {
-                        case Constants.Notice.HISTORY:
-                            presenter.init(HistoryCache.getHistoryCache().getResults().get(0));
-                            presenter.loadData();
-                            break;
+        rxBus.subscribe().subscribe(o -> {
+                    if (o instanceof String) {
+                        String str = (String) o;
+                        switch (str) {
+                            case Constants.Notice.HISTORY:
+                                presenter.init(HistoryCache.getHistoryCache().getResults().get(0));
+                                presenter.loadData();
+                                break;
+                        }
                     }
                 }
-            }
-        });
+        );
 
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.loadDataFromNet();
-            }
-        });
+        swiperefresh.setOnRefreshListener(() -> presenter.loadDataFromNet());
     }
 
     @Override

@@ -34,40 +34,17 @@ public class RandomListPresenter extends BasePresenter implements RandomListImpl
 
     protected void initData() {
         //concat内的网络请求不生效 原因不明
-
         Observable<DataModel> observable = Observable.concat(RandomCache.getObservable(type), RandomServiceToModel.getRandomData(type, 20))
-                .takeFirst(new Func1<DataModel, Boolean>() {
-                    @Override
-                    public Boolean call(DataModel DataModel) {
-                        return DataModel != null
-                                && DataModel.getResults() != null
-                                && !DataModel.getResults().isEmpty();
-                    }
-                });
-        observable.subscribe(new Action1<DataModel>() {
-            @Override
-            public void call(DataModel DataModel) {
-                refreshRecycler(DataModel.getResults());
-            }
-        });
-
-//        if (RandomCache.getCache(type) == null
-//                || Utils.ListUtils.isEmpty(RandomCache.getCache(type).getResults())) {
-//            loadData();
-//        } else {
-//            refreshRecycler(RandomCache.getCache(type).getResults());
-//        }
-
+                .takeFirst(dataModel -> dataModel != null && dataModel.getResults() != null && !dataModel.getResults().isEmpty());
+        observable.subscribe(dataModel -> refreshRecycler(dataModel.getResults()));
     }
 
-    public void loadData() {
+    void loadData() {
         openRefresh();
         Observable<DataModel> observable = RandomServiceToModel.getRandomData(type, 20);
         observable.subscribe(new Subscriber<DataModel>() {
             @Override
-            public void onCompleted() {
-
-            }
+            public void onCompleted() {}
 
             @Override
             public void onError(Throwable e) {

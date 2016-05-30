@@ -38,7 +38,7 @@ public class MainPresenter extends BasePresenter implements MainImpl {
         this.activity = activity;
     }
 
-    public static class FragmentGroup {
+    static class FragmentGroup {
 
         static TodayFragment todayFragment = new TodayFragment();
         static RandomFragment randomFragment = new RandomFragment();
@@ -92,64 +92,39 @@ public class MainPresenter extends BasePresenter implements MainImpl {
         }
         MainPresenter.this.index = index;
         //延时300毫秒加载fragment，保证主线程不阻塞
-        Observable.create(new Observable.OnSubscribe<Long>() {
+        Observable<Long> observable = Observable.create(new Observable.OnSubscribe<Long>() {
             @Override
             public void call(Subscriber<? super Long> subscriber) {
                 subscriber.onNext(200L);
+                subscriber.onCompleted();
             }
-        }).delay(300, TimeUnit.MILLISECONDS)
-                .subscribe(new Subscriber<Long>() {
-                    @Override
-                    public void onCompleted() {
+        });
+        observable.delay(300, TimeUnit.MILLISECONDS)
+                .subscribe(aLong -> {
+                    BaseFragment fragment = getFragment(MainPresenter.this.index);
+                    if (fragment != null) {
+                        currentFragment = fragment;
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(Long aLong) {
-                        BaseFragment fragment = getFragment(MainPresenter.this.index);
-                        if (fragment != null) {
-                            currentFragment = fragment;
-                        }
-                        activity.setCurrentFragment(currentFragment);
-                    }
+                    activity.setCurrentFragment(currentFragment);
                 });
     }
 
     private void loadHistoryData() {
-        HistoryServiceToModel.getHistory().subscribe(new Subscriber<HistoryModel>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(HistoryModel historyModel) {
-                HistoryCache.setHistoryCache(historyModel);
-                sendHistoryData();
-            }
+        HistoryServiceToModel.getHistory().subscribe(historyModel -> {
+            HistoryCache.setHistoryCache(historyModel);
+            sendHistoryData();
         });
     }
 
     private void loadMyCollect() {
         Realm realm = RealmUtils.getRealmInstance();
         RealmResults<GankModel> gankModels = realm.where(GankModel.class).findAll();
-        gankModels.asObservable().subscribe(new Action1<RealmResults<GankModel>>() {
-            @Override
-            public void call(RealmResults<GankModel> gankModels) {
-                HashMap<String, GankModel> map = new HashMap<>();
-                for (GankModel model : gankModels) {
-                    map.put(model.get_id(), model);
-                }
-                MyCache.setCollectCache(map);
+        gankModels.asObservable().subscribe(gankModels1 -> {
+            HashMap<String, GankModel> map = new HashMap<>();
+            for (GankModel model : gankModels) {
+                map.put(model.get_id(), model);
             }
+            MyCache.setCollectCache(map);
         });
     }
 

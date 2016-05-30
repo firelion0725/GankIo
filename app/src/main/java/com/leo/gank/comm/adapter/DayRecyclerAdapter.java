@@ -181,11 +181,11 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
         }
     }
 
-    class ItemClick implements View.OnClickListener {
+    private class ItemClick implements View.OnClickListener {
 
         GankModel model;
 
-        public ItemClick(GankModel model) {
+        ItemClick(GankModel model) {
             this.model = model;
         }
 

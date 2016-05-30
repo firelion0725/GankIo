@@ -60,6 +60,7 @@ public class AboutActivity extends BaseActivity {
     TextView gsonText;
     @Bind(R.id.realm_text)
     TextView realmText;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,24 +87,19 @@ public class AboutActivity extends BaseActivity {
                 this, drawerLayout, toolbar, R.string.action_about, R.string.action_about);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.nav_go_to_gank:
-                        String url = "http://gank.io/";
-                        browser(url);
-                        break;
-                    case R.id.nav_back:
-                        finish();
-                        break;
-                }
-
-                return true;
+        navView.setNavigationItemSelectedListener(item -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            int id = item.getItemId();
+            switch (id) {
+                case R.id.nav_go_to_gank:
+                    String url = "http://gank.io/";
+                    browser(url);
+                    break;
+                case R.id.nav_back:
+                    finish();
+                    break;
             }
+            return true;
         });
     }
 
@@ -118,7 +114,7 @@ public class AboutActivity extends BaseActivity {
     @OnClick({R.id.daimajia_layout, R.id.leo_layout, R.id.dagger2_text
             , R.id.BottomNavigationBar_text, R.id.retrofit2_text
             , R.id.butterknife_text, R.id.picasso_text, R.id.glide_text
-            , R.id.rxjava_text, R.id.gson_text,R.id.realm_text})
+            , R.id.rxjava_text, R.id.gson_text, R.id.realm_text})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.daimajia_layout:

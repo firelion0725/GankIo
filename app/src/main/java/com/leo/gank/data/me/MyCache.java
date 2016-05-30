@@ -19,7 +19,7 @@ import rx.schedulers.Schedulers;
  */
 public class MyCache {
 
-    public static class Cache {
+    private static class Cache {
         static HashMap<String, GankModel> MyCollectCacheList = new HashMap<>();
     }
 
@@ -27,7 +27,7 @@ public class MyCache {
         Cache.MyCollectCacheList = map;
     }
 
-    public static HashMap<String, GankModel> getCollectCache() {
+    private static HashMap<String, GankModel> getCollectCache() {
         return Cache.MyCollectCacheList;
     }
 

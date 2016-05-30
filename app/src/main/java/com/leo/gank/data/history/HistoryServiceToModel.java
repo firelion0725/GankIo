@@ -14,12 +14,11 @@ import rx.schedulers.Schedulers;
  */
 public class HistoryServiceToModel {
 
-    public static Observable<HistoryModel> getHistory(){
+    public static Observable<HistoryModel> getHistory() {
         HistoryService service = RetrofitConnection.getRetrofitClient().create(HistoryService.class);
-        Observable<HistoryModel> history = service.getHistory()
+        return service.getHistory()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
-        return history;
     }
 
     private static final int NUM = 10;

@@ -15,11 +15,11 @@ import rx.schedulers.Schedulers;
  */
 public class RandomCache {
 
-    public static class Cache {
+    private static class Cache {
         static HashMap<String, DataModel> mapCache = new HashMap<>();
     }
 
-    public static DataModel getCache(String type) {
+    private static DataModel getCache(String type) {
         return Cache.mapCache.get(type);
     }
 

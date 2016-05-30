@@ -12,7 +12,7 @@ import rx.Observable;
  * Function 历史数据接口
  * eg http://gank.io/api/day/history
  */
-public interface HistoryService {
+interface HistoryService {
 
     @GET("day/history")
     Observable<HistoryModel> getHistory();

@@ -37,11 +37,7 @@ public class Utils {
          * @return 如果List为nul 或者size为0 返回true 否则为 false
          */
         public static boolean isEmpty(List list) {
-            if (list == null || list.size() == 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return list == null || list.size() == 0;
         }
     }
 
@@ -53,11 +49,7 @@ public class Utils {
          * @return 如果Map为nul 或者size为0 返回true 否则为 false
          */
         public static boolean isEmpty(Map map) {
-            if (map == null || map.size() == 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return map == null || map.size() == 0;
         }
     }
 }

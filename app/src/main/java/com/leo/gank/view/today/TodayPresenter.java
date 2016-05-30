@@ -60,27 +60,25 @@ public class TodayPresenter extends BasePresenter implements TodayImpl {
 
         Observable.concat(DayCache.getCacheObservable(time)
                 , DayServiceToModel.getDayData(year, month, day))
-                .takeFirst(new Func1<DayModel, Boolean>() {
-                    @Override
-                    public Boolean call(DayModel dayModel) {
-                        Log.i("call", dayModel + "---" + (dayModel != null));
-                        return dayModel != null;
-                    }
-                }).subscribe(new Action1<DayModel>() {
-            @Override
-            public void call(DayModel dayModel) {
-                updateView(dayModel);
-            }
-        });
+//                .takeFirst(new Func1<DayModel, Boolean>() {
+//                    @Override
+//                    public Boolean call(DayModel dayModel) {
+//                        Log.i("call", dayModel + "---" + (dayModel != null));
+//                        return dayModel != null;
+//                    }
+//                })
+                .takeFirst(dayModel -> dayModel != null)
+//                .subscribe(new Action1<DayModel>() {
+//            @Override
+//            public void call(DayModel dayModel) {
+//                updateView(dayModel);
+//            }
+//        });
+                .subscribe(dayModel -> updateView(dayModel));
 
-//        if(DayCache.getDayModelCache(time) != null){
-//            updateView(DayCache.getDayModelCache(time));
-//        }else{
-//            loadDataFromNet();
-//        }
     }
 
-    public void loadDataFromNet() {
+    void loadDataFromNet() {
         openRefresh();
         DayServiceToModel.getDayData(year, month, day).subscribe(new Action1<DayModel>() {
             @Override

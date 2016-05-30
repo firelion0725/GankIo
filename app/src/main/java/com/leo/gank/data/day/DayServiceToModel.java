@@ -14,10 +14,8 @@ import rx.schedulers.Schedulers;
 public class DayServiceToModel {
     public static Observable<DayModel> getDayData(String year,String month,String day) {
         DayService service = RetrofitConnection.getRetrofitClient().create(DayService.class);
-        Observable<DayModel> dayData = service.getDay(year, month,day)
+        return service.getDay(year, month,day)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
-
-        return dayData;
     }
 }

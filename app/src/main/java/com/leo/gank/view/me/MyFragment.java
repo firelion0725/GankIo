@@ -58,7 +58,7 @@ public class MyFragment extends BaseFragment implements MyImpl {
         components.inject(this);
 
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new RecyclerAdapter(getContext(), new ArrayList<GankModel>());
+        adapter = new RecyclerAdapter(getContext(), new ArrayList<>());
         recyclerview.setAdapter(adapter);
 
         presenter.initData();

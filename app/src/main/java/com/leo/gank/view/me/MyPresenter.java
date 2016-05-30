@@ -37,37 +37,26 @@ public class MyPresenter extends BasePresenter implements MyImpl {
     private void loadData() {
 
         Observable.concat(MyCache.getObservable(), getDataBaseObservable())
-                .takeFirst(new Func1<List<GankModel>, Boolean>() {
-                    @Override
-                    public Boolean call(List<GankModel> gankModels) {
-                        return !Utils.ListUtils.isEmpty(gankModels);
-                    }
-                })
-                .subscribe(new Action1<List<GankModel>>() {
-                    @Override
-                    public void call(List<GankModel> gankModels) {
-                        refreshRecycler(gankModels);
-                    }
+                .takeFirst(gankModels -> !Utils.ListUtils.isEmpty(gankModels))
+                .subscribe(gankModels -> {
+                    refreshRecycler(gankModels);
                 });
     }
 
-    public void refresh() {
+    void refresh() {
         loadMyCollect();
     }
 
     private void loadMyCollect() {
         openRefresh();
-        getDataBaseObservable().subscribe(new Action1<List<GankModel>>() {
-            @Override
-            public void call(List<GankModel> gankModels) {
-                HashMap<String, GankModel> map = new HashMap<>();
-                for (GankModel model : gankModels) {
-                    map.put(model.get_id(), model);
-                }
-                MyCache.setCollectCache(map);
-                refreshRecycler(gankModels);
-                closeRefresh();
+        getDataBaseObservable().subscribe(gankModels -> {
+            HashMap<String, GankModel> map = new HashMap<>();
+            for (GankModel model : gankModels) {
+                map.put(model.get_id(), model);
             }
+            MyCache.setCollectCache(map);
+            refreshRecycler(gankModels);
+            closeRefresh();
         });
     }
 

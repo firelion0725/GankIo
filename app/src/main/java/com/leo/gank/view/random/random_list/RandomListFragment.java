@@ -35,14 +35,14 @@ public class RandomListFragment extends BaseFragment implements RandomListImpl {
     @Inject
     RandomListPresenter presenter;
 
-    RandomListComponents components;
+    private RandomListComponents components;
 
     @Bind(R.id.recyclerview)
     RecyclerView recyclerview;
     @Bind(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
 
-    RecyclerAdapter adapter;
+    private RecyclerAdapter adapter;
 
     public static RandomListFragment getInstance(String type) {
         RandomListFragment fragment = new RandomListFragment();
@@ -73,17 +73,12 @@ public class RandomListFragment extends BaseFragment implements RandomListImpl {
     protected void setDataForViews() {
         swiperefresh.setColorSchemeResources(R.color.amber_500, R.color.teal_500
                 , R.color.blue_500, R.color.pink_500);
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.loadData();
-            }
-        });
+        swiperefresh.setOnRefreshListener(() -> presenter.loadData());
     }
 
-    public void reset() {
+    private void reset() {
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new RecyclerAdapter(getContext(), new ArrayList<GankModel>());
+        adapter = new RecyclerAdapter(getContext(), new ArrayList<>());
         recyclerview.setAdapter(adapter);
 
         presenter.setType(getArguments().getString(Constants.Argument.TYPE));

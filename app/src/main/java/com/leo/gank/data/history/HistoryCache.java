@@ -29,7 +29,7 @@ public class HistoryCache {
         Cache.historyModelCache = model;
     }
 
-    public static DataModel getGirlList(int page) {
+    private static DataModel getGirlList(int page) {
         return Cache.girlMap.get(page);
     }
 
