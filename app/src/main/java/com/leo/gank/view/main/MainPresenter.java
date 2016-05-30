@@ -40,11 +40,6 @@ public class MainPresenter extends BasePresenter implements MainImpl {
 
     public static class FragmentGroup {
 
-        final static String TODAY = "today";
-        final static String RANDOM = "random";
-        final static String HISTORY = "history";
-        final static String ME = "me";
-
         static TodayFragment todayFragment = new TodayFragment();
         static RandomFragment randomFragment = new RandomFragment();
         static HistoryFragment historyFragment = new HistoryFragment();
@@ -64,6 +59,22 @@ public class MainPresenter extends BasePresenter implements MainImpl {
 
         static MyFragment getMeFragment() {
             return myFragment;
+        }
+    }
+
+    private BaseFragment getFragment(int index) {
+
+        switch (index) {
+            case 0:
+                return FragmentGroup.getTodayFragment();
+            case 1:
+                return FragmentGroup.getRandomFragment();
+            case 2:
+                return FragmentGroup.getHistoryFragment();
+            case 3:
+                return FragmentGroup.getMeFragment();
+            default:
+                return currentFragment;
         }
     }
 
@@ -98,22 +109,7 @@ public class MainPresenter extends BasePresenter implements MainImpl {
 
                     @Override
                     public void onNext(Long aLong) {
-                        BaseFragment fragment = currentFragment;
-                        switch (MainPresenter.this.index) {
-                            case 0:
-                                fragment = FragmentGroup.getTodayFragment();
-                                break;
-                            case 1:
-                                fragment = FragmentGroup.getRandomFragment();
-                                break;
-                            case 2:
-                                fragment = FragmentGroup.getHistoryFragment();
-                                break;
-                            case 3:
-                                fragment = FragmentGroup.getMeFragment();
-                                break;
-                        }
-
+                        BaseFragment fragment = getFragment(MainPresenter.this.index);
                         if (fragment != null) {
                             currentFragment = fragment;
                         }
