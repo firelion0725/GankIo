@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.leo.gank.R;
 import com.leo.gank.comm.Constants;
+import com.leo.gank.comm.firebase.FireBaseUtils;
 import com.leo.gank.comm.realm.RealmUtils;
 import com.leo.gank.comm.utils.DialogUtils;
 import com.leo.gank.comm.view.BasePresenter;
@@ -38,6 +39,7 @@ public class BrowserPresenter extends BasePresenter implements BrowserImpl {
 
         setToolBar(model.getDesc(), MyCache.isHas(model.get_id()));
         loadUrl(model.getUrl());
+        FireBaseUtils.sendWebAnalyticsLog(model.getUrl(), model.getDesc());
     }
 
     @Override
@@ -51,49 +53,33 @@ public class BrowserPresenter extends BasePresenter implements BrowserImpl {
     }
 
 
-    public void write() {
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm bgRealm) {
-                bgRealm.copyToRealmOrUpdate(model);
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                DialogUtils.showToast(activity, R.string.collect_add);
-                MyCache.putCollectCache(model);
-                setToolBar(model.getDesc(), true);
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                Log.i("error", "" + error.getMessage());
-                Toast.makeText(activity, "OnError:" + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    void write() {
+        realm.executeTransactionAsync(bgRealm ->
+                        bgRealm.copyToRealmOrUpdate(model)
+                , () -> {
+                    DialogUtils.showToast(activity, R.string.collect_add);
+                    MyCache.putCollectCache(model);
+                    setToolBar(model.getDesc(), true);
+                }, error -> {
+                    Log.i("error", "" + error.getMessage());
+                    Toast.makeText(activity, "OnError:" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
-    public void delete() {
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm bgRealm) {
-                GankModel m = bgRealm.copyToRealmOrUpdate(model);
-                m.deleteFromRealm();
-            }
-        }, new Realm.Transaction.OnSuccess() {
-            @Override
-            public void onSuccess() {
-                DialogUtils.showToast(activity, R.string.collect_cancel);
-                MyCache.removeCollectCache(model);
-                setToolBar(model.getDesc(),false);
-            }
-        }, new Realm.Transaction.OnError() {
-            @Override
-            public void onError(Throwable error) {
-                Log.i("error", "" + error.getMessage());
-                Toast.makeText(activity, "OnError:" + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+    void delete() {
+        realm.executeTransactionAsync(
+                bgRealm -> {
+                    GankModel m = bgRealm.copyToRealmOrUpdate(model);
+                    m.deleteFromRealm();
+                }, () -> {
+                    DialogUtils.showToast(activity, R.string.collect_cancel);
+                    MyCache.removeCollectCache(model);
+                    setToolBar(model.getDesc(), false);
+                }
+                , error -> {
+                    Log.i("error", "" + error.getMessage());
+                    Toast.makeText(activity, "OnError:" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+        );
     }
 }

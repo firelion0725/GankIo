@@ -34,14 +34,14 @@ public class MyFragment extends BaseFragment implements MyImpl {
     @Inject
     MyPresenter presenter;
 
-    MyComponents components;
+    private MyComponents components;
 
     @Bind(R.id.recyclerview)
     RecyclerView recyclerview;
     @Bind(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
 
-    RecyclerAdapter adapter;
+    private RecyclerAdapter adapter;
 
     @Nullable
     @Override
@@ -68,13 +68,7 @@ public class MyFragment extends BaseFragment implements MyImpl {
     protected void setDataForViews() {
         swiperefresh.setColorSchemeResources(R.color.amber_500, R.color.teal_500
                 , R.color.blue_500, R.color.pink_500);
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.refresh();
-            }
-        });
-
+        swiperefresh.setOnRefreshListener(() -> presenter.refresh());
     }
 
     @Override

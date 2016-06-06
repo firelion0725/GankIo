@@ -8,7 +8,7 @@ import java.util.List;
  * Created by leo on 2016/5/10
  * Function
  */
-public interface MyImpl {
+interface MyImpl {
     void openRefresh();
 
     void closeRefresh();

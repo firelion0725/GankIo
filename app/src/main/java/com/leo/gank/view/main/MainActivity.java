@@ -10,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.leo.gank.R;
 import com.leo.gank.comm.Constants;
+import com.leo.gank.comm.firebase.FireBaseUtils;
 import com.leo.gank.comm.rxjava.RxBus;
 import com.leo.gank.comm.view.BaseActivity;
 import com.leo.gank.comm.view.BaseFragment;
@@ -57,6 +59,8 @@ public class MainActivity extends BaseActivity implements MainImpl {
 
     @Override
     public void initData() {
+        FireBaseUtils.initAnalytics(this);
+
         manager = getSupportFragmentManager();
 
         components = DaggerMainComponents.builder()

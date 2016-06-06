@@ -55,14 +55,11 @@ public class BrowserActivity extends BaseActivity implements BrowserImpl {
         components = DaggerBrowserComponents.builder()
                 .browserModules(new BrowserModules(this)).build();
         components.inject(this);
-
         presenter.initData();
-
     }
 
     @Override
-    protected void setDataForViews() {
-    }
+    protected void setDataForViews() {}
 
 
     @Override

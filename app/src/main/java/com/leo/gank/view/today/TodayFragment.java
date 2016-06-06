@@ -36,17 +36,17 @@ import rx.functions.Action1;
  */
 public class TodayFragment extends BaseFragment implements TodayImpl {
 
-    RxBus rxBus;
+    private RxBus rxBus;
 
     @Inject
     TodayPresenter presenter;
 
-    TodayComponents components;
+    private TodayComponents components;
 
     @Bind(R.id.recylerview)
     RecyclerView recylerview;
 
-    DayRecyclerAdapter adapter;
+    private DayRecyclerAdapter adapter;
     @Bind(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
 

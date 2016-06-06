@@ -92,13 +92,13 @@ public class MainPresenter extends BasePresenter implements MainImpl {
         }
         MainPresenter.this.index = index;
         //延时300毫秒加载fragment，保证主线程不阻塞
-        Observable<Long> observable = Observable.create(new Observable.OnSubscribe<Long>() {
-            @Override
-            public void call(Subscriber<? super Long> subscriber) {
-                subscriber.onNext(200L);
-                subscriber.onCompleted();
-            }
-        });
+
+        Observable<Long> observable = Observable.create(subscriber -> {
+                    subscriber.onNext(200L);
+                    subscriber.onCompleted();
+                }
+        );
+
         observable.delay(300, TimeUnit.MILLISECONDS)
                 .subscribe(aLong -> {
                     BaseFragment fragment = getFragment(MainPresenter.this.index);

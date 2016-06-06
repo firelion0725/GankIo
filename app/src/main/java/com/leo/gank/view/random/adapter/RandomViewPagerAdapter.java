@@ -11,7 +11,7 @@ import com.leo.gank.view.random.random_list.RandomListFragment;
  * Function
  */
 public class RandomViewPagerAdapter extends FragmentStatePagerAdapter {
-    String[] strs;
+    private String[] strs;
 
     public RandomViewPagerAdapter(FragmentManager fm, String[] strs) {
         super(fm);

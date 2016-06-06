@@ -1,7 +1,5 @@
 package com.leo.gank.view.today;
 
-import android.util.Log;
-
 import com.leo.gank.comm.view.BasePresenter;
 import com.leo.gank.data.day.DayCache;
 import com.leo.gank.data.day.DayServiceToModel;
@@ -11,8 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by leo on 2016/4/28
@@ -20,14 +16,14 @@ import rx.functions.Func1;
  */
 public class TodayPresenter extends BasePresenter implements TodayImpl {
 
-    TodayFragment fragment;
-    String year, month, day;
+    private TodayFragment fragment;
+    private String year, month, day;
 
     public TodayPresenter(TodayFragment fragment) {
         this.fragment = fragment;
     }
 
-    public void init(Date date) {
+    void init(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         year = String.valueOf(calendar.get(Calendar.YEAR));
@@ -55,39 +51,23 @@ public class TodayPresenter extends BasePresenter implements TodayImpl {
         fragment.closeRefresh();
     }
 
-    public void loadData() {
+    void loadData() {
         String time = year + "-" + month + "-" + day;
 
         Observable.concat(DayCache.getCacheObservable(time)
                 , DayServiceToModel.getDayData(year, month, day))
-//                .takeFirst(new Func1<DayModel, Boolean>() {
-//                    @Override
-//                    public Boolean call(DayModel dayModel) {
-//                        Log.i("call", dayModel + "---" + (dayModel != null));
-//                        return dayModel != null;
-//                    }
-//                })
                 .takeFirst(dayModel -> dayModel != null)
-//                .subscribe(new Action1<DayModel>() {
-//            @Override
-//            public void call(DayModel dayModel) {
-//                updateView(dayModel);
-//            }
-//        });
                 .subscribe(dayModel -> updateView(dayModel));
 
     }
 
     void loadDataFromNet() {
         openRefresh();
-        DayServiceToModel.getDayData(year, month, day).subscribe(new Action1<DayModel>() {
-            @Override
-            public void call(DayModel dayModel) {
-                String time = year + "-" + month + "-" + day;
-                DayCache.setDayModelCache(time, dayModel);
-                updateView(dayModel);
-                closeRefresh();
-            }
+        DayServiceToModel.getDayData(year, month, day).subscribe(dayModel -> {
+            String time = year + "-" + month + "-" + day;
+            DayCache.setDayModelCache(time, dayModel);
+            updateView(dayModel);
+            closeRefresh();
         });
     }
 }

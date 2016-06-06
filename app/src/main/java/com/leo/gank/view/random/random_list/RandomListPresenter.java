@@ -20,7 +20,7 @@ import rx.functions.Func1;
  */
 public class RandomListPresenter extends BasePresenter implements RandomListImpl {
 
-    RandomListFragment fragment;
+    private RandomListFragment fragment;
 
     public RandomListPresenter(RandomListFragment fragment) {
         this.fragment = fragment;

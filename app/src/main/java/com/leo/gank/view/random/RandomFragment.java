@@ -26,19 +26,19 @@ import butterknife.ButterKnife;
  * Created by leo on 2016/4/25
  * Function
  */
-public class RandomFragment extends BaseFragment {
+public class RandomFragment extends BaseFragment implements RandomImpl {
 
     @Inject
     RandomPresenter presenter;
 
-    RandomComponents components;
+    private RandomComponents components;
 
     @Bind(R.id.tablayout)
     TabLayout tabLayout;
     @Bind(R.id.viewpager)
     ViewPager viewpager;
 
-    RandomViewPagerAdapter adapter;
+    private RandomViewPagerAdapter adapter;
 
     @Nullable
     @Override

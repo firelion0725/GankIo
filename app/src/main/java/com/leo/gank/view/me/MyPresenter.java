@@ -38,9 +38,9 @@ public class MyPresenter extends BasePresenter implements MyImpl {
 
         Observable.concat(MyCache.getObservable(), getDataBaseObservable())
                 .takeFirst(gankModels -> !Utils.ListUtils.isEmpty(gankModels))
-                .subscribe(gankModels -> {
-                    refreshRecycler(gankModels);
-                });
+                .subscribe(gankModels ->
+                        refreshRecycler(gankModels)
+                );
     }
 
     void refresh() {
@@ -63,12 +63,10 @@ public class MyPresenter extends BasePresenter implements MyImpl {
     private Observable<List<GankModel>> getDataBaseObservable() {
         Realm realm = RealmUtils.getRealmInstance();
         final RealmResults<GankModel> gankModels = realm.where(GankModel.class).findAll();
-        return Observable.create(new Observable.OnSubscribe<List<GankModel>>() {
-            @Override
-            public void call(Subscriber<? super List<GankModel>> subscriber) {
-                subscriber.onNext(gankModels);
-                subscriber.onCompleted();
-            }
+
+        return Observable.create(subscriber -> {
+            subscriber.onNext(gankModels);
+            subscriber.onCompleted();
         });
     }
 
