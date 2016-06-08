@@ -38,7 +38,7 @@ android {
 
 dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
-    testCompile "junit:junit:4.12"
+
 
     // support支持包
     compile "com.android.support:appcompat-v7:${rootProject.ext.support}"
@@ -51,6 +51,7 @@ dependencies {
 
     //网络通讯层
     compile "com.squareup.okhttp3:okhttp:${rootProject.ext.okhttp}"
+    compile "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.okhttp}"
     compile "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit2}"
     compile "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofit2}"
     compile "com.squareup.retrofit2:adapter-rxjava:${rootProject.ext.retrofit2}"
@@ -78,4 +79,12 @@ dependencies {
 
     //firebase
     compile 'com.google.firebase:firebase-analytics:9.0.2'
+    //内存泄漏 leakcanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    //单元测试
+    testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-core:${rootProject.ext.mockito}"
+    testCompile "org.robolectric:robolectric:${rootProject.ext.robolectric}"
 }

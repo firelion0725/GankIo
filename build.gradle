@@ -56,6 +56,10 @@ ext {
     dagger = "2.0.2"
     //数据库
     realm = "1.0.0"
+
+    //单元测试
+    robolectric = '3.0'
+    mockito = '2.0.5-beta'
 }
 
 task clean(type: Delete) {

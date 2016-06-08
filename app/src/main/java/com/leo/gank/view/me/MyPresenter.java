@@ -23,7 +23,7 @@ import rx.functions.Func1;
  */
 public class MyPresenter extends BasePresenter implements MyImpl {
 
-    MyFragment fragment;
+    private MyFragment fragment;
 
     public MyPresenter(MyFragment fragment) {
         this.fragment = fragment;
@@ -38,9 +38,7 @@ public class MyPresenter extends BasePresenter implements MyImpl {
 
         Observable.concat(MyCache.getObservable(), getDataBaseObservable())
                 .takeFirst(gankModels -> !Utils.ListUtils.isEmpty(gankModels))
-                .subscribe(gankModels ->
-                        refreshRecycler(gankModels)
-                );
+                .subscribe(gankModels -> refreshRecycler(gankModels));
     }
 
     void refresh() {

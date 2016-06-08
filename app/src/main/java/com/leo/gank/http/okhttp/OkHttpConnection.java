@@ -1,25 +1,36 @@
 package com.leo.gank.http.okhttp;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Created by leo on 2016/4/1
  * Function okhttp基础类
- *
  */
 public class OkHttpConnection {
 
-    private static class ClientHolder{
+    private static class ClientHolder {
+
         private static OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60,TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .addInterceptor(getHttpLoggingInterceptor())
                 .build();
     }
 
-    public static final OkHttpClient getOkHttpClient(){
+    public static OkHttpClient getOkHttpClient() {
         return ClientHolder.client;
+    }
+
+    private static HttpLoggingInterceptor getHttpLoggingInterceptor() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
     }
 
 }
