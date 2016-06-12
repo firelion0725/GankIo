@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity implements MainImpl {
 
     }
 
-    public void setCurrentFragment(BaseFragment fragment) {
+    void setCurrentFragment(BaseFragment fragment) {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.container_layout, fragment);
         transaction.commit();

@@ -60,7 +60,7 @@ public class HistoryFragment extends BaseFragment implements HistoryImpl {
 
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerview.setLayoutManager(gridLayoutManager);
-        adapter = new HistoryRecyclerAdapter(getContext(), new ArrayList<GankModel>());
+        adapter = new HistoryRecyclerAdapter(getContext(), new ArrayList<>());
         recyclerview.setAdapter(adapter);
 
         presenter.initData();

@@ -27,7 +27,7 @@ public class HistoryDataPresenter extends BasePresenter implements HistoryDataIm
         this.activity = activity;
     }
 
-    public void init() {
+    void init() {
         model = activity.getIntent().getParcelableExtra(Constants.Argument.MODEL);
         Date date = model.getPublishedAt();
         Calendar calendar = Calendar.getInstance();
@@ -47,7 +47,7 @@ public class HistoryDataPresenter extends BasePresenter implements HistoryDataIm
         activity.updateView(model);
     }
 
-    public void loadData() {
+    private void loadData() {
         String time = year + "-" + month + "-" + day;
 
         if (DayCache.getDayModelCache(time) != null) {
@@ -59,13 +59,13 @@ public class HistoryDataPresenter extends BasePresenter implements HistoryDataIm
 
 
     private void loadDataFromNet() {
-        DayServiceToModel.getDayData(year, month, day).subscribe(new Action1<DayModel>() {
-            @Override
-            public void call(DayModel dayModel) {
-                String time = year + "-" + month + "-" + day;
-                DayCache.setDayModelCache(time, dayModel);
-                updateView(dayModel);
-            }
-        });
+        DayServiceToModel.getDayData(year, month, day)
+                .subscribe(
+                        dayModel -> {
+                            String time = year + "-" + month + "-" + day;
+                            DayCache.setDayModelCache(time, dayModel);
+                            updateView(dayModel);
+                        }
+                );
     }
 }

@@ -38,7 +38,7 @@ public class MainPresenter extends BasePresenter implements MainImpl {
         this.activity = activity;
     }
 
-    static class FragmentGroup {
+    private static class FragmentGroup {
 
         static TodayFragment todayFragment = new TodayFragment();
         static RandomFragment randomFragment = new RandomFragment();

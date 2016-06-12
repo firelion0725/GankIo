@@ -72,12 +72,7 @@ public class HistoryDataActivity extends BaseActivity implements HistoryDataImpl
         toolbar.setNavigationIcon(R.drawable.ic_back_white);
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
