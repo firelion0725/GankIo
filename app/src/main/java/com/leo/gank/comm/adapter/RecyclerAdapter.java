@@ -2,12 +2,12 @@ package com.leo.gank.comm.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.leo.gank.R;
@@ -48,16 +48,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final GankModel resultsEntity = results.get(position);
+        GankModel resultsEntity = results.get(position);
         holder.descText.setText(resultsEntity.getDesc());
         holder.nameText.setText(resultsEntity.getWho());
         holder.timeText.setText(TimeUtils.formatDateAndTime(resultsEntity.getPublishedAt()));
-        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gotoBrowser(resultsEntity);
-            }
-        });
+        holder.itemLayout.setOnClickListener(v -> gotoBrowser(resultsEntity));
     }
 
     @Override
@@ -79,7 +74,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         @Bind(R.id.time_text)
         TextView timeText;
         @Bind(R.id.item_layout)
-        RelativeLayout itemLayout;
+        ConstraintLayout itemLayout;
 
         ViewHolder(View itemView) {
             super(itemView);

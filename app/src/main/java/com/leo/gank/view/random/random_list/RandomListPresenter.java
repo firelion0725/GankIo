@@ -1,6 +1,5 @@
 package com.leo.gank.view.random.random_list;
 
-import com.leo.gank.comm.utils.Utils;
 import com.leo.gank.comm.view.BasePresenter;
 import com.leo.gank.data.random.RandomCache;
 import com.leo.gank.data.random.RandomServiceToModel;
@@ -11,8 +10,6 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by leo on 2016/4/26

@@ -1,52 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:paddingLeft="@dimen/two_space"
-    android:paddingRight="@dimen/two_space">
-
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/desc_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/one_space"
-        android:layout_marginTop="@dimen/one_space"
-        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="皮筋式弹性下拉即刷新组件，效果很赞"
-        android:textSize="14sp" />
+        app:layout_constraintLeft_toLeftOf="@+id/item_layout"
+        app:layout_constraintTop_toTopOf="@+id/item_layout" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/desc_text"
-        android:layout_marginBottom="@dimen/one_space"
-        android:orientation="horizontal">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Dear宅学长"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/item_layout"
+        app:layout_constraintTop_toBottomOf="@+id/desc_text" />
 
-        <TextView
-            android:id="@+id/name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Dear宅学长"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/time_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/two_space"
-            android:gravity="center"
-            android:text="2015-10-22T02:06:07.743Z"
-            android:textSize="12sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="2015-10-22T02:06:07.743Z"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/name_text"
+        app:layout_constraintTop_toBottomOf="@+id/desc_text" />
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="1px"
-        android:layout_alignParentBottom="true"
-        android:background="@color/gray_400" />
-
-</RelativeLayout>
+        android:layout_marginTop="8dp"
+        android:background="@color/gray_400"
+        app:layout_constraintLeft_toLeftOf="@+id/item_layout"
+        app:layout_constraintTop_toBottomOf="@+id/time_text" />
+</android.support.constraint.ConstraintLayout>
