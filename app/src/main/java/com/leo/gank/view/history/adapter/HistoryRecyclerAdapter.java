@@ -21,6 +21,7 @@ import com.leo.gank.model.day.DayModel;
 import com.leo.gank.view.history.day.HistoryDataActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
@@ -123,7 +124,11 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
     private void gotoHistory(int position) {
         Intent intent = new Intent(context, HistoryDataActivity.class);
         GankModel model = girls.get(position);
-        intent.putExtra(Constants.Argument.MODEL,model);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(model.getPublishedAt());
+        intent.putExtra(Constants.Argument.YEAR, String.valueOf(calendar.get(Calendar.YEAR)));
+        intent.putExtra(Constants.Argument.MONTH, String.valueOf(calendar.get(Calendar.MONTH) + 1));
+        intent.putExtra(Constants.Argument.DAY, String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         context.startActivity(intent);
     }
 

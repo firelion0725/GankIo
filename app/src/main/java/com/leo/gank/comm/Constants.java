@@ -12,11 +12,15 @@ public class Constants {
         public static final String TITLE = "title";
         public static final String TIME = "time";
         public static final String MODEL = "model";
+        public static final String YEAR = "year";
+        public static final String MONTH = "month";
+        public static final String DAY = "day";
+
 
         public static final String POSITION = "position";
     }
 
-    public static class Type{
+    public static class Type {
         public static final String ANDROID = "Android";
         public static final String IOS = "iOS";
         public static final String WELFARE = "福利";
@@ -26,7 +30,7 @@ public class Constants {
         public static final String APP = "APP";
     }
 
-    public static class Notice{
+    public static class Notice {
         public static final String HISTORY = "history";
 
     }

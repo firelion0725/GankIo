@@ -1,9 +1,11 @@
 package com.leo.gank.comm.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.leo.gank.R;
 import com.leo.gank.comm.Constants;
@@ -43,7 +46,12 @@ public class DayRecyclerAdapter extends RecyclerView.Adapter<DayRecyclerAdapter.
     private List<GankModel> list;
 
     public void setDayModel(DayModel dayModel) {
-        if (dayModel == null) {
+        if (dayModel == null || dayModel.getCategory().size() == 0) {
+            Toast.makeText(context, "没有该日期GankIO，请返回", Toast.LENGTH_SHORT).show();
+            if (context instanceof Activity) {
+                Activity activity = (Activity) context;
+                activity.finish();
+            }
             return;
         }
         this.dayModel = dayModel;

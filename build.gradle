@@ -56,6 +56,8 @@ ext {
     dagger = "2.0.2"
     //数据库
     realm = "1.0.0"
+    //firebase
+    firebase = "9.0.2"
 
     //单元测试
     robolectric = '3.0'

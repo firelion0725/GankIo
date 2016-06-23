@@ -1,5 +1,6 @@
 package com.leo.gank.view.main;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.FrameLayout;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -17,10 +19,14 @@ import com.leo.gank.comm.firebase.FireBaseUtils;
 import com.leo.gank.comm.rxjava.RxBus;
 import com.leo.gank.comm.view.BaseActivity;
 import com.leo.gank.comm.view.BaseFragment;
+import com.leo.gank.model.day.DayModel;
 import com.leo.gank.view.about.AboutActivity;
+import com.leo.gank.view.history.day.HistoryDataActivity;
 import com.leo.gank.view.main.dagger.DaggerMainComponents;
 import com.leo.gank.view.main.dagger.MainComponents;
 import com.leo.gank.view.main.dagger.MainModules;
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -36,6 +42,9 @@ public class MainActivity extends BaseActivity implements MainImpl {
     FrameLayout containerLayout;
     @Bind(R.id.bottom_layout)
     BottomNavigationBar bottomLayout;
+
+    private DatePickerDialog datePickerDialog;
+    private Calendar calendar;
 
     private FragmentManager manager;
 
@@ -68,6 +77,8 @@ public class MainActivity extends BaseActivity implements MainImpl {
         components.inject(this);
         rxBus = new RxBus();
         presenter.initData();
+
+        calendar = Calendar.getInstance();
     }
 
     @Override
@@ -99,9 +110,8 @@ public class MainActivity extends BaseActivity implements MainImpl {
                     break;
             }
             presenter.setFragment(i);
+            selectDay();
         });
-
-
     }
 
     void setCurrentFragment(BaseFragment fragment) {
@@ -110,15 +120,32 @@ public class MainActivity extends BaseActivity implements MainImpl {
         transaction.commit();
     }
 
-
     private void gotoAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
 
+    private void selectDay() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        datePickerDialog = new DatePickerDialog(this, (view, yearOfDate, monthOfYear, dayOfMonth) ->
+                goDayActivity(yearOfDate, monthOfYear, dayOfMonth)
+                , year, month, day);
+    }
+
     @Override
     public void sendHistoryData() {
         rxBus.send(Constants.Notice.HISTORY);
+    }
+
+    private void goDayActivity(int year, int month, int day) {
+        Intent intent = new Intent(this, HistoryDataActivity.class);
+        calendar.set(year, month, day);
+        intent.putExtra(Constants.Argument.YEAR, String.valueOf(calendar.get(Calendar.YEAR)));
+        intent.putExtra(Constants.Argument.MONTH, String.valueOf(calendar.get(Calendar.MONTH) + 1));
+        intent.putExtra(Constants.Argument.DAY, String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        startActivity(intent);
     }
 
     @Override
@@ -131,9 +158,16 @@ public class MainActivity extends BaseActivity implements MainImpl {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_about) {
-            gotoAbout();
-            return true;
+        switch (id) {
+            case R.id.action_about:
+                gotoAbout();
+                break;
+            case R.id.action_day:
+                if (datePickerDialog == null) {
+                    selectDay();
+                }
+                datePickerDialog.show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
