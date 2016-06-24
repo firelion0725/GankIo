@@ -32,6 +32,4 @@ public class RandomViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return strs[position];
     }
-
-
 }

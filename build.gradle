@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha3'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha4'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath "io.realm:realm-gradle-plugin:0.90.0"
         classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
@@ -28,11 +28,11 @@ ext {
     //Android
     buildToolsVersion = "24.0.0 rc4"
     minSdkVersion = 19
-    targetSdkVersion = 23
-    compileSdkVersion = 23
+    targetSdkVersion = 24
+    compileSdkVersion = 24
 
     //Support Libraries
-    support = "23.4.0"
+    support = "24.0.0"
 
     //网络框架
     okhttp = "3.3.0"
