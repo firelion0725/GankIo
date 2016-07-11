@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha4'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha5'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath "io.realm:realm-gradle-plugin:0.90.0"
         classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
@@ -35,23 +35,23 @@ ext {
     support = "24.0.0"
 
     //网络框架
-    okhttp = "3.3.0"
-    retrofit2 = "2.0.1"
+    okhttp = "3.4.1"
+    retrofit2 = "2.1.0"
 
     //图片缓存
     picasso = "2.5.2"
-    fresco = "0.10.0"
+    fresco = "0.11.0"
     glide = "3.7.0"
 
     //数据解析
-    gson = "2.6.2"
+    gson = "2.7"
 
     //控件注解
     butterknife = "7.0.1"
 
     //RxJava
-    rxjava = "1.1.5"
-    rxandroid = "1.2.0"
+    rxjava = "1.1.7"
+    rxandroid = "1.2.1"
     //Dagger
     dagger = "2.0.2"
     //数据库
